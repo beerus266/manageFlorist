@@ -1,0 +1,25 @@
+#statisticTable ,#exportFlowerTable th{
+    font-size: 140%;
+}
+
+#statisticTable ,#exportFlowerTable td{
+    font-weight: bold;
+    font-size: 121%;
+}
+
+.container-amount {
+    text-align: center;
+    font-weight: bold;
+    font-size: 250%;
+}
+
+.container-info-customer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#statisticCustomerName {
+    color: #e71111;
+    font-size: 120%;
+}
