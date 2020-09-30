@@ -6,7 +6,7 @@
 @section('body-page')
 
 	<div class="title-content">
-		Khách hàng dan
+		Khách hàng
 	</div>
 	{{-- Button Create  --}}
 		<div class="bg"></div>

@@ -16,6 +16,7 @@ var table = $('#customerTable').DataTable({
     ordering: true,
     searching: false,
     paging: false,
+    "scrollX": true,
 });
     
 //====== Show modal store =================

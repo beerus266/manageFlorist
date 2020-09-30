@@ -3,12 +3,14 @@ var tableAdd = $('#tableCreate').DataTable({
     ordering: false,
     searching: false,
     paging: false,
+    // "scrollX": true,
+    // "scrollY": '100%'
 });
 var tableExport = $('#exportFlowerTable').DataTable({
     ordering: false,
     searching: false,
-    paging: false,
-    
+    paging: true,
+    // "scrollX": true,
     "info": false,
 });
 var tableStatistic = $('#statisticTable').DataTable({
@@ -16,6 +18,7 @@ var tableStatistic = $('#statisticTable').DataTable({
     searching: false,
     paging: false,
     "info": false,
+    // "scrollX": true,
 
 });
 // Variable
@@ -48,6 +51,7 @@ $('input[name="date"]').daterangepicker({
     startDate: moment().subtract( 47,'days'),
     locale: {
       format: 'DD/MM/YYYY'
+        // cancelLabel: 'Clear'
     }
   });
   $('input[name="statisticDate"]').daterangepicker({
@@ -82,13 +86,13 @@ function addIntoTable(){
         'quantity'  : Number($("#flowerQuantity").val()),
         'price'     : Number($("#flowerPrice").val()),
     };
-    // console.log(dataAdd);
+    console.log(dataAdd);
     // check form input 
     if (  $("#flowerName").val() == 0 
             ||  dataAdd.tai == "" 
-            ||  !Number.isInteger(dataAdd.quantity)
+            ||  typeof dataAdd.quantity != 'number'
             ||  dataAdd.quantity == "" 
-            ||  !Number.isInteger(dataAdd.price) 
+            ||  typeof dataAdd.price != 'number'
             ||  dataAdd.price == ""
             || $("#customerName").val() == 0
     ){
@@ -141,7 +145,6 @@ $("#storeExportFlower").on('click',function(){
         console.log(data);
         $(".alert").show().fadeOut(5000);
         for ( i = 0; i < tableAdd.rows().count(); i++){
-            console.log(i, tableAdd.rows().count());
             tableExport.row.add([
                 tableExport.rows().count() + 1,
                 dataStore.date,
