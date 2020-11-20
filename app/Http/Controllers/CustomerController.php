@@ -38,6 +38,6 @@ class CustomerController extends Controller
 
     function getAllCustomer(){
 
-        return Customer::all();
+        return Customer::orderBy('name','asc')->get();
     }
 }

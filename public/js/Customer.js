@@ -14,7 +14,7 @@ $("nav").children("ul").children(" li:eq(2)").addClass("active");
 // DataTable
 var table = $('#customerTable').DataTable({
     ordering: true,
-    searching: false,
+    searching: true,
     paging: false,
     "scrollX": true,
 });

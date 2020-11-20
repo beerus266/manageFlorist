@@ -23,3 +23,34 @@
     color: #e71111;
     font-size: 120%;
 }
+
+#addCompletelyAleart {
+    position: fixed;
+    top: 7%;
+    right: 2%;
+    width: 300px;
+    z-index: 1100;
+}
+#addCompletelyAleart li {
+    list-style-type: none;
+    background-color: #40ce0db3;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: justify;
+    padding : 16px 0;
+    font-size: 80%;  
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    font-weight: bold;
+    
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

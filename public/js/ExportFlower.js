@@ -9,7 +9,7 @@ var tableAdd = $('#tableCreate').DataTable({
 var tableExport = $('#exportFlowerTable').DataTable({
     ordering: false,
     searching: false,
-    paging: true,
+    paging: false,
     // "scrollX": true,
     "info": false,
 });
@@ -72,6 +72,7 @@ $("#createExport").on('click',function(){
     $("#flowerQuantity").val("");
     $("#flowerPrice").val("");
     $("#tai").val("");
+    $("#note").val("");
     $("#customerName").val(0);
     $("#date").prop('disabled',false);
     tableAdd.clear().draw();
@@ -80,8 +81,9 @@ $("#createExport").on('click',function(){
 //====== Add into tableCreate ============
 function addIntoTable(){
     let dataAdd = {
-        'customer'    : $("#customerName option:selected").text(),
+        'customer'  : $("#customerName option:selected").text(),
         'flower'    : $("#flowerName option:selected").text(),
+        'note'      : $("#note").val(),
         'tai'       : $("#tai").val(),
         'quantity'  : Number($("#flowerQuantity").val()),
         'price'     : Number($("#flowerPrice").val()),
@@ -109,6 +111,7 @@ function addIntoTable(){
         let dataExport = {
             'customer_id' : $("#customerName").val(),
             'flower_id' : $("#flowerName").val(),
+            'note'      : dataAdd.note,
             'tai'       : dataAdd.tai,
             'quantity'  : dataAdd.quantity,
             'price'     : dataAdd.price,
@@ -117,11 +120,31 @@ function addIntoTable(){
 
         tableAdd.row.add([
             dataAdd.customer,
-            dataAdd.flower,
+            dataAdd.flower +" "+ dataAdd.note,
             dataAdd.tai+"T",
             dataAdd.quantity,
             dataAdd.price,
         ]).draw(false);
+
+        $("#addCompletelyAleart").prepend("<li>"+dataAdd.customer
+                                                +" :"+dataAdd.flower 
+                                                +" "
+                                                + dataAdd.note
+                                                + " "+dataAdd.tai+"T"
+                                                + " "+dataAdd.quantity
+                                                + " x "+dataAdd.price
+                                                +"</li>");
+
+        
+        if ( $("#addCompletelyAleart li").length > 8 ) {
+            $("#addCompletelyAleart li:last-child").remove();
+        }                                     
+
+        $("#flowerQuantity").val("");
+        $("#flowerPrice").val("");
+        $("#tai").val("");
+        $("#note").val("");
+        $("#tai").focus();
     }
 }
 
@@ -129,7 +152,7 @@ $("#addFlower").on('click',function(){
     addIntoTable();
 });
 
-$("#flowerPrice").on('keyup',function(e){
+$("#note").on('keyup',function(e){
     if (e.keyCode == 13){
         addIntoTable();
     }
@@ -137,6 +160,7 @@ $("#flowerPrice").on('keyup',function(e){
 //====== Store export flower ====================
 $("#storeExportFlower").on('click',function(){
     let dataStore = {
+        '_token': $('meta[name="csrf-token"]').attr('content'),
         'date'          : moment($("#date").val(), 'DD-MM-YYYY').format('YYYY-MM-DD'),
         'exportFlower'  : dataStandStore
     }
@@ -177,6 +201,8 @@ $("#statisticBtn").on('click',function(){
     } else {
         // console.log(dataStatistic);
 
+        $("aside").css("display","none");
+        $("section").css("width","100%");
         StatisticExportFlower(dataStatistic).done(function(data){
             console.log(data);
 
@@ -202,7 +228,7 @@ $("#statisticBtn").on('click',function(){
                 tableStatistic.row.add([
                     formDate  == flag
                     ? "" : formDate ,
-                    item.flower_name,
+                    item.note != null ? (item.flower_name +" "+item.note) : item.flower_name,
                     item.tai+"T",
                     item.quantity,
                     "x "+item.price,
@@ -220,6 +246,7 @@ $("#statisticBtn").on('click',function(){
         });
     }
 });
+
 //============= Adjust =====================
 // $('#exportFlowerTable').parent().parent().css('margin-right','0px');
 // $('#exportFlowerTable').parent().parent().css('margin-left','0px');

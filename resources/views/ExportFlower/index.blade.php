@@ -8,6 +8,16 @@
         <div class="title-content">
             XUẤT HÀNG
         </div>
+        <!-- <form  action="{{ route('exportFlower.store')}}" enctype="multipart/form-data" method="post"> 
+            {{ csrf_field() }} 
+            @csrf
+                    <div class="form-group">
+						<label for="">Ảnh mẫu</label>
+						<input type="file"  id="img" name="imgInvoice">
+					</div>
+            <button type="submit" class="btn btn-primary" id="upload"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{__('Tai Anh')}}</button>    
+        </form> -->
+
         {{-- <div class="action">
             <div class="row">
                 <button type="button" class="btn btn-primary" id="createExport">Xuất hàng</button>
@@ -79,7 +89,7 @@
                         <td>{{$loop->index+1}}</td>
                         <td>{{$export->date}}</td>
                         <td>{{$export->name}}</td>
-                        <td>{{$export->flower_name}} ( {{ $export->flower_code}} ) </td>
+                        <td>{{$export->flower_name}} {{$export->note}} </td>
                         <td>{{$export->tai}}T</td>
                         <td>{{$export->quantity}}</td>
                         <td>x {{$export->price}}</td>
@@ -89,8 +99,8 @@
             </tbody>
         </table>
         <div class="row container-amount" >
-            <div class="col-sm-6">Tổng:</div>
-            <div class="col-sm-6" id="totalAmount"></div>
+            <div class="col-sm-6" style="color:#2cb349">Tổng:</div>
+            <div class="col-sm-6" id="totalAmount" style="color:#2cb349"></div>
         </div>
         {{-- ======================================================================================= --}}
         {{-- Modal create  --}}
@@ -130,17 +140,21 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-sm-2">
-                                <label for=""> Số tai (T)</label>
+                            <div class="form-group col-sm-1">
+                                <label for=""> Tai </label>
                                 <input type="text" class="form-control"  id="tai">
                             </div>
                             <div class="form-group col-sm-2">
                                 <label for="">Số bó hoa</label>
                                 <input type="text" class="form-control"  id="flowerQuantity">
                             </div>
-                            <div class="form-group col-sm-3">
+                            <div class="form-group col-sm-2">
                                 <label for="">Giá</label>
                                 <input type="text" class="form-control"  id="flowerPrice">
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for="">Ghi chú</label>
+                                <input type="text" class="form-control"  id="note">
                             </div>
                             <div class=" col-sm-2">
                                 <button type="button" class="btn btn-success " style="margin-top:26%; width:100%" id="addFlower">Thêm</button>
@@ -165,6 +179,9 @@
                 </div>
             </div>
         </div>
+
+        <ul id="addCompletelyAleart">       
+        </ul>
     
 @endsection
 

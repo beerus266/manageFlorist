@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\CustomerController;
 use App\Models\ExportFlower;
@@ -29,8 +30,20 @@ class ExportFlowerController extends Controller
     }
 
     public function StoreExportFlower ( Request $request){
-        // dd($request);
+        //dd($request);
+        //$request->file('imgInvoice')->store('InvoiceStorage');
 
+        //dd($request->hasFile('imgInvoice')  );
+
+        // if ($request->hasFile('imgInvoice')) {
+
+        //     $fileInvoice = $request->imgInvoice;
+        //     Storage::putFileAs('InvoiceStorage',$fileInvoice,"name.pdf");
+        //  //   $file->move('InvoiceStorage', $file->getClientOriginalName());
+        //     return back();
+        // } else {
+        //     return view('welcome');
+        // }
         $date           = $request->date;
 
         foreach ( $request->exportFlower as $block ){
@@ -40,6 +53,7 @@ class ExportFlowerController extends Controller
             $export->date           = $date;
             $export->customer_id    = $block['customer_id'];
             $export->flower_id      = $block['flower_id'];
+            if( isset($block['note']) ) $export->note = $block['note'];
             $export->tai            = $block['tai'];
             $export->quantity       = $block['quantity'];
             $export->price          = $block['price'];
@@ -62,7 +76,7 @@ class ExportFlowerController extends Controller
                             ->where('customer_id', $request->customer_id)
                             ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
                             // ->join(' customer ', 'export_flower.customer_id', '=', 'customer.id')
-                            ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date')
+                            ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
                             ->orderBy('date','asc')
                             ->get();
 
@@ -77,7 +91,7 @@ class ExportFlowerController extends Controller
         $dataOrigin = ExportFlower::join( 'flower', 'export_flower.flower_id', '=' , 'flower.id')
                                     ->join( 'customer', 'export_flower.customer_id', '=', 'customer.id' )
                                     ->orderBy ('date', 'asc')
-                                    ->select('export_flower.id','customer.name', 'flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date')
+                                    ->select('export_flower.id','customer.name', 'flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
                                     ->get();
 
         // dd($dataOrigin);
