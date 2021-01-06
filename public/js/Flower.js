@@ -8,7 +8,7 @@ function StoreFlower(dataStore) {
 }
 
 //====== Active Navigation ================
-$("nav").children("ul").children(" li:eq(1)").addClass("active");
+$(".list-unstyled").children(" li:eq(1)").addClass("active");
 
 
 //====== Show modal store =================
@@ -22,8 +22,10 @@ $("#createFlower").on('click',function(){
 $("#storeFlower").on('click',function(){
     let dataStore = {
         'flower_name' : $("#conventName").val(),
-        'flower_code' : $("#scientificName").val(),
-        'supplier' : $("#supplier").val(),
+        'flower_code' : $("#conventName").val(),
+        'supplier' : 'null',
+        // 'flower_code' : $("#scientificName").val(),
+        // 'supplier' : $("#supplier").val(),
     }
     if ( dataStore.flower_code == "" || dataStore.flower_name == ""){
         if ( dataStore.flower_name == ""){

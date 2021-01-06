@@ -40,4 +40,8 @@ class CustomerController extends Controller
 
         return Customer::orderBy('name','asc')->get();
     }
+
+    function countAllCustomer(){
+        return CusTomer::all()->count();
+    }
 }

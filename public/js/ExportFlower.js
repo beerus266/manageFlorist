@@ -42,13 +42,13 @@ function StatisticExportFlower(dataStatistic) {
 }
 
 //====== Active Navigation ================
-$("nav").children("ul").children(" li:eq(4)").addClass("active");
+$(".list-unstyled").children(" li:eq(4)").addClass("active");
 
 //===== Date rang picker ==================
 $('input[name="date"]').daterangepicker({
     timePicker: false,
     singleDatePicker: true,
-    startDate: moment().subtract( 47,'days'),
+    startDate: moment().subtract( 43,'days'),
     locale: {
       format: 'DD/MM/YYYY'
         // cancelLabel: 'Clear'
@@ -57,8 +57,8 @@ $('input[name="date"]').daterangepicker({
   $('input[name="statisticDate"]').daterangepicker({
     timePicker: false,
     singleDatePicker: false,
-    startDate: moment().subtract( 47,'days').startOf('month'),
-    endDate: moment().subtract( 47, 'days'),
+    startDate: moment().subtract( 43,'days').startOf('month'),
+    endDate: moment().subtract( 43, 'days'),
     locale: {
       format: 'DD/MM/YYYY'
     }
@@ -76,7 +76,9 @@ $("#createExport").on('click',function(){
     $("#customerName").val(0);
     $("#date").prop('disabled',false);
     tableAdd.clear().draw();
+    $("#storeExportFlower").prop("disabled",false);
     $('#modalCreateExport').modal();
+    // $('#modalCreateExport').modal({backdrop: 'static', keyboard: false, show: true})  ;
 });
 //====== Add into tableCreate ============
 function addIntoTable(){
@@ -88,7 +90,7 @@ function addIntoTable(){
         'quantity'  : Number($("#flowerQuantity").val()),
         'price'     : Number($("#flowerPrice").val()),
     };
-    console.log(dataAdd);
+    // console.log(dataAdd);
     // check form input 
     if (  $("#flowerName").val() == 0 
             ||  dataAdd.tai == "" 
@@ -144,7 +146,7 @@ function addIntoTable(){
         $("#flowerPrice").val("");
         $("#tai").val("");
         $("#note").val("");
-        $("#tai").focus();
+        $("#flowerName").focus();
     }
 }
 
@@ -165,9 +167,11 @@ $("#storeExportFlower").on('click',function(){
         'exportFlower'  : dataStandStore
     }
     // console.log(dataStore);
+    $(this).prop("disabled",true);
+    $(".btn-loading").show();
     StoreExportFlower(dataStore).done(function(data){
         console.log(data);
-        $(".alert").show().fadeOut(5000);
+        $(".alert").show().fadeOut(15000);
         for ( i = 0; i < tableAdd.rows().count(); i++){
             tableExport.row.add([
                 tableExport.rows().count() + 1,
@@ -181,6 +185,8 @@ $("#storeExportFlower").on('click',function(){
             ]).draw(true);
         }
 
+        $("#addCompletelyAleart li").remove();
+        $(".btn-loading").hide();
         $('#modalCreateExport').modal('hide');
         
     }).fail(function(e){

@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @push('CssFile')
-    {{-- <link href="{{ asset('css/cssCustomer.css')}}"  rel="stylesheet" > --}}
+    <link href="{{ asset('css/cssCustomer.css')}}"  rel="stylesheet" > 
 @endpush
 @section('body-page')
 

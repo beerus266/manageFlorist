@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\CustomerController;
 use App\Models\ExportFlower;
+use Carbon\Carbon;
 
 class ExportFlowerController extends Controller
 {
@@ -17,6 +18,7 @@ class ExportFlowerController extends Controller
     ){
         $this->flowerContr = $FlowerController;
         $this->customerContr = $CustomerController;
+        $this->subDaysLunar = 43;
     }
 
     public function index(){
@@ -25,7 +27,7 @@ class ExportFlowerController extends Controller
         $dataAllCustomer    = $this->customerContr->getAllCustomer();
     
         $dataAllExport      = $this->getAllExport();
-        // dd($dataAllExport);
+        // dd($dataAllFlower);
         return view('ExportFlower.index', compact( 'dataAllFlower', 'dataAllCustomer','dataAllExport' ));
     }
 
@@ -69,7 +71,6 @@ class ExportFlowerController extends Controller
     }
 
     public function StatisticExportFlower ( Request $request ){
-
         // dd($request);
 
         $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
@@ -87,15 +88,40 @@ class ExportFlowerController extends Controller
     }
 
     function getAllExport(){
-
         $dataOrigin = ExportFlower::join( 'flower', 'export_flower.flower_id', '=' , 'flower.id')
                                     ->join( 'customer', 'export_flower.customer_id', '=', 'customer.id' )
-                                    ->orderBy ('date', 'asc')
+                                    ->orderBy ('date', 'desc')
                                     ->select('export_flower.id','customer.name', 'flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                    ->limit(500)
                                     ->get();
 
         // dd($dataOrigin);
 
         return $dataOrigin;
+    }
+
+    public function getBarChart(){
+        $current = Carbon::now()->subDays($this->subDaysLunar);
+        $curentSubAWeek = Carbon::now()->subDays($this->subDaysLunar + 7);
+
+        $data = ExportFlower::whereBetween('date', [ $curentSubAWeek->toDateString(), $current->toDateString() ])
+                            ->groupBy("date")
+                            ->select("date",ExportFlower::raw('sum(cast(price as int) * cast(quantity as int)) as total'))
+                            ->get();
+        return $data;
+    }
+
+    function getAmountAMonth(){
+        $startOfMonth = Carbon::now()->subDays($this->subDaysLunar)->startOfMonth();
+        $endOfMonth = Carbon::now()->subDays($this->subDaysLunar)->endOfMonth();
+
+        $data = ExportFlower::whereBetween('date', [ $startOfMonth, $endOfMonth ])
+                            // ->groupBy("date")
+                            ->select(ExportFlower::raw('sum(cast(price as int) * cast(quantity as int)) as totalAMonth'))
+                            ->get();
+        $data[0]->totalAMonth = number_format($data[0]->totalAMonth , 0, '.', ',');
+        $data[0]->month = Carbon::now()->subDays($this->subDaysLunar)->month;
+        // dd($data);
+        return $data;
     }
 }

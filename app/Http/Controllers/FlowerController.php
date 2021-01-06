@@ -38,6 +38,10 @@ class FlowerController extends Controller
     function getAllFlower(){
 
         // return Flower::paginate(4);
-        return Flower::all();
+        return Flower::orderBy("flower_name","asc")->get();
+    }
+
+    function countAllFlower(){
+        return Flower::all()->count();
     }
 }

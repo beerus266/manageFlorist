@@ -2,17 +2,15 @@
 
 html {
   font-family:'Sofia', sans-serif;
-  font-size: 21px;
-  background: #5e42a6;
-  /* background: #fff; */
+  font-size: 21px !important;
+  /* background: #5e42a6; */
+}
+body{
+  font-family: 'Nunito';
 }
 
-.sidebar {
-  position: fixed;
-  width: 15%;
-  height: 100vh;
-  background: #312450;
-  font-size: 0.65em;
+#sidebar {
+background: #5e42a6 !important;
 }
 
 .nav {
@@ -57,7 +55,7 @@ html {
       color: rgba(255,255,255, 0.75);
     }
     
-    .nav ul li::after {
+    .nav ul li:hover a::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -65,15 +63,20 @@ html {
       background: black;
       left: 0;
       bottom: 0;
-      background-image: linear-gradient(to right, #5e42a6, #b74e91)
+      background-image: linear-gradient(to right, #5e42a6, #b74e91);
     }
     /* ==================== Content ============================ */
+.wrapper {
+  background-color: #d6ccf3;
+}
 .content{
-  position: relative;
-  width: 85%;
+  /* position: relative; */
+  width: 100%;
   height: 100%;
-  float: right;
-  background-color: rgba(255,255,255, 0.75);
+  /* float: right; */
+  /* background-color: rgba(255,255,255, 0.75); */
+  padding: 0 .5rem;
+  background-color: #d6ccf3;
 }
 
 .container-content {
@@ -127,6 +130,7 @@ html {
 .bg {
   animation: pulse 1.2s ease infinite;
   background: #ff3466;
+  z-index: 1;
 }
 
 .button {

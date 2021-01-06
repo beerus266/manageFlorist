@@ -17,11 +17,13 @@ use App\Http\Controllers\ExportFlowerController;
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/get-bar-chart', [HomeController::class, 'getBarChart'])->name('home.getBarChart');
 
 //Flower
 Route::get('/flower', [FlowerController::class, 'index'])->name('flower.index');

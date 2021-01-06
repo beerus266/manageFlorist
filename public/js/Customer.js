@@ -9,14 +9,15 @@ function StoreCustomer(dataStore) {
 
 
 //====== Active Navigation ================
-$("nav").children("ul").children(" li:eq(2)").addClass("active");
+$(".list-unstyled").children(" li:eq(2)").addClass("active");
 
 // DataTable
 var table = $('#customerTable').DataTable({
-    ordering: true,
-    searching: true,
+    // ordering: true,
+    // searching: true,
     paging: false,
-    "scrollX": true,
+    // "scrollX": true,
+    // "scrollY": "100%",
 });
     
 //====== Show modal store =================

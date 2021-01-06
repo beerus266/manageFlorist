@@ -54,3 +54,11 @@
         opacity: 1;
     }
 }
+
+.btn-loading {
+    position: fixed;
+    top: 50%;
+    left: 44%;
+    display: none;
+    z-index: 10000000;
+}

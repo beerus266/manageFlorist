@@ -29,7 +29,7 @@
         {{-- -------------------------------------------------- --}}
         <div class="action">
             <div class="row">
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-5">
                     <label for="" style="font-weight: bold">Chọn ngày</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -56,7 +56,10 @@
             <div class="col-sm-6"  style="display:none">Tên khách hàng: <span id="statisticCustomerName"></span></div>
             <div class="col-sm-6" id="fromToDate"></div>
         </div>
-
+        <button class="btn btn-primary btn-loading" type="button" disabled >
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Đang lưu...
+        </button>
         <table class="table table-bordered table-striped" id="statisticTable" style="display:none">
             <thead>
                 <th>Ngày</th>
@@ -104,7 +107,7 @@
         </div>
         {{-- ======================================================================================= --}}
         {{-- Modal create  --}}
-        <div class="modal fade" id="modalCreateExport" tabindex="-2" role="dialog" >
+        <div class="modal fade" id="modalCreateExport" tabindex="-2" role="dialog" disabled>
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -136,7 +139,7 @@
                                 <select type="text" class="form-control"  id="flowerName" >
                                     <option value="0" >Chọn loại hoa</option>
                                     @foreach ($dataAllFlower as $flo)
-                                        <option value="{{$flo->id}}">{{$flo->flower_name}} ( {{$flo->flower_code}} )</option>
+                                        <option value="{{$flo->id}}">{{$flo->flower_name}}</option>
                                     @endforeach
                                 </select>
                             </div>

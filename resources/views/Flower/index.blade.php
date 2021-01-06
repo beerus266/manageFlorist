@@ -47,19 +47,19 @@
 						<span id="errConventName" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
 						<input type="text" class="form-control" placeholder="VD: Lắc" id="conventName" required>
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="display:none">
 						<label for="">Tên hoa khoa học:</label>
 						<span id="errScientificName" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
 						<input type="text" class="form-control" placeholder="VD: Lake Carry" id="scientificName">
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="display:none">
 						<label for="">Quốc gia bán củ</label>
 						<input type="text" class="form-control" placeholder="VD: Hà Lan" id="supplier">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="">Ảnh mẫu</label>
 						<input type="file"  id="img">
-					</div>
+					</div> -->
 				</div>
 				<div class="modal-footer">
         			<button type="button" class="btn btn-primary" id="storeFlower"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{__('Lưu')}}</button>    
