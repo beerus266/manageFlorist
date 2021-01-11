@@ -1,0 +1,72 @@
+#statisticTable ,#importFlowerTable th{
+    font-size: 140%;
+}
+
+#statisticTable ,#importFlowerTable td{
+    font-weight: bold;
+    font-size: 121%;
+}
+
+.container-amount {
+    text-align: center;
+    font-weight: bold;
+    font-size: 250%;
+    color: #e71111;
+}
+
+.container-info-customer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#statisticCustomerName {
+    color: #e71111;
+    font-size: 120%;
+}
+
+#addCompletelyAleart {
+    position: fixed;
+    padding-inline-start: 0px;
+    top: 7%;
+    right: 2%;
+    width: 250px;
+    z-index: 1100;
+}
+#addCompletelyAleart li {
+    position: relative;
+    list-style-type: none;
+    background-color: #40ce0db3;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: justify;
+    padding : 16px 0;
+    font-size: 85%;  
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    font-weight: bold;  
+}
+@keyframes fadeIn {
+    0% {
+        left: 100%;
+        opacity: 0;
+    }
+    100% {
+        left: 0%;
+        opacity: 1;
+    }
+}
+
+#addCompletelyAleart li p {
+    text-align: center;
+}
+.btn-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 10000000;
+}

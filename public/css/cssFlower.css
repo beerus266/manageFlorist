@@ -25,6 +25,7 @@
   
   .profile-card-2 img {
     transition: all linear 0.25s;
+    filter: brightness(50%);
   }
   
   .profile-card-2 .profile-name-socially {
@@ -33,9 +34,9 @@
     left: 30px;
     bottom: 70px;
     font-size: 30px;
-    color: #FFF;
+    color: #6c757d;
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-    font-weight: bold;
+    font-weight: bolder;
     transition: all linear 0.25s;
   }
   
@@ -43,16 +44,17 @@
     position: absolute;
     bottom: 45px;
     left: 30px;
-    color: #FFF;
+    color: #6c757d;
     font-size: 20px;
     transition: all linear 0.25s;
   }
   
   .profile-card-2:hover .profile-name-socially {
     bottom: 80px;
-    color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
   }
   
   .profile-card-2:hover .profile-name-exactly {
     bottom: 60px;
+    color: #ffffff;
   }

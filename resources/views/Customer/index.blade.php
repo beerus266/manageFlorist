@@ -10,7 +10,7 @@
 	</div>
 	{{-- Button Create  --}}
 		<div class="bg"></div>
-		<div class="button" id="createCustomer"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></div>
+		<div class="button" id="createCustomer"><i class="fas fa-pencil-alt fa-2x"></i></div>
 	{{-- -------------------------------------------------- --}}
 	{{-- Alert --}}
         <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Xuất hàng thành công ! Xem ở đầu bảng</strong> </div>
@@ -67,11 +67,29 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-        			<button type="button" class="btn btn-primary" id="storeCustomer"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{__('Lưu')}}</button>    
+        			<button type="button" class="btn btn-primary" id="storeCustomer"><i class="fas fa-save"></i> {{__('Lưu')}}</button>    
 				</div>
 			</div>
 		</div>
 	</div>
+	{{-- ======================================================================================= --}}
+        {{-- Modal Error  --}}
+        <div class="modal" id="modalErr" tabindex="-2" role="dialog" disabled >
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #d52727;">
+                        <h2 class="modal-title" style=" color: #ceabab"><i class="fas fa-exclamation-triangle"></i> Gặp lỗi khi đang xử lý !!!!</h2>
+                        <button type="button" data-dismiss="close" class="close" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background-color: #e74343">
+                        <h4>Yêu cầu gọi Hải (0393755766) để xử lý</h4>
+                        <p>Hiện giờ phần mềm này KHÔNG còn đúng nữa....</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @push('JsFile')

@@ -54,6 +54,7 @@ $("#storeFlower").on('click',function(){
 
             $('#modalCreateFlower').modal('hide');
         }).fail(function(e){
+            $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
             console.log(e);
         });
     }

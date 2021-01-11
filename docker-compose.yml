@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+	db:
+		image: mysql
+		restart: always
+		ports: 
+		 - "3306:3306" 
+		environment: 
+			MYSQL_DATABASE: 'flower_warehouse'
+			MYSQL_ALLOW_EMPTY_PASSWORD: 1
+			MYSQL_PASSWORD: ""
+	app:
+		build: 
+			context: 
+			dockerfile: .docker/dockerfile
+		image: 'laravelapp'
+		ports: 
+		 - "8080:80"
+		 volumes: 
+		 - D:/Flower-Management/

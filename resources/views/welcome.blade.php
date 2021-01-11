@@ -14,7 +14,8 @@
         <!-- Styles Bootstrap 4 -->
             <link type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
         {{-- Font Awesome --}}
-            <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset('plugins/AdminLTE-3.1.0-rc/plugins/fontawesome-free/css/all.min.css') }}">
+            {{-- <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"> --}}
         {{-- Date range picker  --}}
             <link href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
         {{-- DataTables  --}}
@@ -50,19 +51,19 @@
 		  		<h1><a href="/" class="logo">Mơ Lê</a></h1>
 	        <ul class="list-unstyled components mb-5">
 	          <li>
-	            <a href="{{ route('home.index') }}">Trang chủ</a>
+	            <a href="{{ route('home.index') }}"><i class="fas fa-home"></i> Trang chủ</a>
 	          </li>
 	          <li>
-	              <a href="{{ route('flower.index')}}">Các loại hoa</a>
+	              <a href="{{ route('flower.index')}}"><i class="fas fa-seedling"></i> Các loại hoa</a>
 	          </li>
 	          <li>
-                <a href="{{ route('customer.index')}}">Khách hàng</a>
+                <a href="{{ route('customer.index')}}"> <i class="fas fa-user-friends"></i> Khách hàng</a>
 	          </li>
 	          <li>
-                <a href="#">Nhập hàng</a>
+                <a href="{{route('importFlower.index')}}"><i class="fas fa-truck-loading"></i> Nhập hàng</a>
               </li>
               <li>
-                <a href="{{route('exportFlower.index')}}">Xuất hàng</a>
+                <a href="{{route('exportFlower.index')}}"><i class="fas fa-dolly"></i> Xuất hàng</a>
 	          </li>
 	        </ul>
 

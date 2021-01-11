@@ -16,6 +16,7 @@ class ExportFlowerController extends Controller
         FlowerController $FlowerController,
         CustomerController $CustomerController
     ){
+        $this->middleware('auth');
         $this->flowerContr = $FlowerController;
         $this->customerContr = $CustomerController;
         $this->subDaysLunar = 43;

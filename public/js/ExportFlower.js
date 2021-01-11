@@ -94,9 +94,9 @@ function addIntoTable(){
     // check form input 
     if (  $("#flowerName").val() == 0 
             ||  dataAdd.tai == "" 
-            ||  typeof dataAdd.quantity != 'number'
+            ||  isNaN(dataAdd.quantity) 
             ||  dataAdd.quantity == "" 
-            ||  typeof dataAdd.price != 'number'
+            ||  isNaN(dataAdd.price) 
             ||  dataAdd.price == ""
             || $("#customerName").val() == 0
     ){
@@ -105,9 +105,22 @@ function addIntoTable(){
         } else {
             $("#errCus").hide();
         }
+        if (isNaN(dataAdd.quantity) ||  dataAdd.quantity == "" ) {
+            $("#errQuantity").show();
+        } else {
+            $("#errQuantity").hide();
+        }
+        if (isNaN(dataAdd.price) ||  dataAdd.price == "" ) {
+            $("#errPrice").show();
+        } else {
+            $("#errPrice").hide();
+        }
         $("#errOmit").show();
     }else {
         $("#errOmit").hide();
+        $("#errPrice").hide();
+        $("#errQuantity").hide();
+        $("#errCus").hide();
         $("#date").prop('disabled',true);
 
         let dataExport = {
@@ -128,17 +141,17 @@ function addIntoTable(){
             dataAdd.price,
         ]).draw(false);
 
-        $("#addCompletelyAleart").prepend("<li>"+dataAdd.customer
-                                                +" :"+dataAdd.flower 
+        $("#addCompletelyAleart").prepend("<li><p>"+dataAdd.customer
+                                                +" : "+dataAdd.flower 
                                                 +" "
                                                 + dataAdd.note
                                                 + " "+dataAdd.tai+"T"
                                                 + " "+dataAdd.quantity
                                                 + " x "+dataAdd.price
-                                                +"</li>");
+                                                +"</p></li>");
 
         
-        if ( $("#addCompletelyAleart li").length > 8 ) {
+        if ( $("#addCompletelyAleart li").length > 7 ) {
             $("#addCompletelyAleart li:last-child").remove();
         }                                     
 
@@ -190,7 +203,8 @@ $("#storeExportFlower").on('click',function(){
         $('#modalCreateExport').modal('hide');
         
     }).fail(function(e){
-        console.log(e)
+        $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+        console.log(e);
     });
 });
 
@@ -248,7 +262,8 @@ $("#statisticBtn").on('click',function(){
 
             $("#totalAmount").text(totalAmount);
         }).fail(function(e){
-            console.log(e)
+            $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+            console.log(e);
         });
     }
 });

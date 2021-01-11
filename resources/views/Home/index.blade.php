@@ -2,7 +2,6 @@
 
 @push('CssFile')
 	<!-- <link href="{{ asset('css/cssHome.css')}}"  rel="stylesheet" > -->
-	<link rel="stylesheet" href="{{ asset('plugins/AdminLTE-3.1.0-rc/plugins/fontawesome-free/css/all.min.css') }}">
 	 <!-- Theme style -->
 	<!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
 	<link rel="stylesheet" href="{{ asset('plugins/AdminLTE-3.1.0-rc/dist/css/adminlte.min.css') }}">
@@ -13,22 +12,22 @@
 		<div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-warning">
               <div class="inner">
                 <h3>{{$countFlower}}</h3>
 
                 <p>Loại hoa</p>
               </div>
               <div class="icon">
-                <i class="fab fa-pagelines"></i>
+                <i class="fas fa-seedling"></i>
               </div>
-              <a href="{{ route('flower.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('flower.index')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{$countCustomer}}</h3>
 
@@ -37,22 +36,7 @@
               <div class="icon">
                 <i class="fas fa-user-friends"></i>
               </div>
-              <a href="{{ route('customer.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>0</h3>
-
-                <p>Tiền nhập tháng</p>
-              </div>
-              <div class="icon">
-                <i class="far fa-money-bill-alt"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('customer.index')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -60,14 +44,29 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{$amountAMonth->totalAMonth}}</h3>
+                <h3>{{$amountImportAMonth->totalAMonth}}</h3>
 
-                <p>Tiền xuất tháng {{$amountAMonth->month}}</p>
+                <p>Tiền nhập hoa tháng {{$amountImportAMonth->month}}</p>
               </div>
               <div class="icon">
-                <i class="fas fa-money-bill-alt"></i>
+                <i class="fas fa-truck-loading"></i>
               </div>
-              <a href="{{ route('exportFlower.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('importFlower.index')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{$amountExportAMonth->totalAMonth}}</h3>
+
+                <p>Tiền xuất hoa tháng {{$amountExportAMonth->month}}</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-dolly"></i>
+              </div>
+              <a href="{{ route('exportFlower.index')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -95,6 +94,24 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+                {{-- ======================================================================================= --}}
+        {{-- Modal Error  --}}
+        <div class="modal" id="modalErr" tabindex="-2" role="dialog" disabled >
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header" style="background-color: #d52727;">
+                      <h2 class="modal-title" style=" color: #ceabab"><i class="fas fa-exclamation-triangle"></i> Gặp lỗi khi đang xử lý !!!!</h2>
+                      <button type="button" data-dismiss="close" class="close" aria-label="Close">
+                          <span aria-hidden="true">x</span>
+                      </button>
+                  </div>
+                  <div class="modal-body" style="background-color: #e74343">
+                      <h4>Yêu cầu gọi Hải (0393755766) để xử lý</h4>
+                      <p>Hiện giờ phần mềm này KHÔNG còn đúng nữa....</p>
+                  </div>
+              </div>
+          </div>
+      </div>
 @endsection
 
 @push('JsFile')

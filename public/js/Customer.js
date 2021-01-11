@@ -62,6 +62,7 @@ $("#storeCustomer").on('click',function(){
 
             $('#modalCreateCustomer').modal('hide');
         }).fail(function(e){
+            $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
             console.log(e);
         });
     }

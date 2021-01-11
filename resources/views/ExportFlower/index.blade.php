@@ -25,7 +25,7 @@
         </div> --}}
         {{-- Button Create  --}}
             <div class="bg"></div>
-            <div class="button" id="createExport"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></div>
+            <div class="button" id="createExport"><i class="fas fa-pencil-alt fa-2x"></i></div>
         {{-- -------------------------------------------------- --}}
         <div class="action">
             <div class="row">
@@ -102,8 +102,8 @@
             </tbody>
         </table>
         <div class="row container-amount" >
-            <div class="col-sm-6" style="color:#2cb349">Tổng:</div>
-            <div class="col-sm-6" id="totalAmount" style="color:#2cb349"></div>
+            <div class="col-sm-6" >Tổng:</div>
+            <div class="col-sm-6" id="totalAmount" ></div>
         </div>
         {{-- ======================================================================================= --}}
         {{-- Modal create  --}}
@@ -111,7 +111,7 @@
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="modal-title">Nhập hàng</div>
+                        <div class="modal-title">Xuất hàng</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -148,11 +148,13 @@
                                 <input type="text" class="form-control"  id="tai">
                             </div>
                             <div class="form-group col-sm-2">
-                                <label for="">Số bó hoa</label>
+                                <label for="">Số bó hoa</label> 
+                                <span id="errQuantity" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                 <input type="text" class="form-control"  id="flowerQuantity">
                             </div>
                             <div class="form-group col-sm-2">
                                 <label for="">Giá</label>
+                                <span id="errPrice" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                 <input type="text" class="form-control"  id="flowerPrice">
                             </div>
                             <div class="form-group col-sm-2">
@@ -177,7 +179,25 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="storeExportFlower"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{__('Xuất')}}</button>    
+                        <button type="button" class="btn btn-primary" id="storeExportFlower"><i class="fas fa-save"></i> {{__('Xuất')}}</button>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- ======================================================================================= --}}
+        {{-- Modal Error  --}}
+        <div class="modal" id="modalErr" tabindex="-2" role="dialog" disabled >
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #d52727;">
+                        <h2 class="modal-title" style=" color: #ceabab"><i class="fas fa-exclamation-triangle"></i> Gặp lỗi khi đang xử lý !!!!</h2>
+                        <button type="button" data-dismiss="close" class="close" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background-color: #e74343">
+                        <h4>Yêu cầu gọi Hải (0393755766) để xử lý</h4>
+                        <p>Hiện giờ phần mềm này KHÔNG còn đúng nữa....</p>
                     </div>
                 </div>
             </div>

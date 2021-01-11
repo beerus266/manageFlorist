@@ -82,4 +82,7 @@ getBarChart().done(function(data){
       data: barChartData,
       options: barChartOptions
 	});
-}).fail(function(e){console.log(e)});
+}).fail(function(e){
+  $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+  console.log(e);
+});

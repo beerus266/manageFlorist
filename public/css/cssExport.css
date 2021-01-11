@@ -11,6 +11,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 250%;
+    color: #2cb349;
 }
 
 .container-info-customer {
@@ -20,18 +21,20 @@
 }
 
 #statisticCustomerName {
-    color: #e71111;
+    color: #2cb349;
     font-size: 120%;
 }
 
 #addCompletelyAleart {
     position: fixed;
+    padding-inline-start: 0px;
     top: 7%;
     right: 2%;
-    width: 300px;
+    width: 250px;
     z-index: 1100;
 }
 #addCompletelyAleart li {
+    position: relative;
     list-style-type: none;
     background-color: #40ce0db3;
     width: 100%;
@@ -40,25 +43,30 @@
     margin-bottom: 10px;
     text-align: justify;
     padding : 16px 0;
-    font-size: 80%;  
+    font-size: 85%;  
     animation-name: fadeIn;
-    animation-duration: 1s;
-    font-weight: bold;
-    
+    animation-duration: 1.5s;
+    font-weight: bold;  
 }
 @keyframes fadeIn {
     0% {
+        left: 100%;
         opacity: 0;
     }
     100% {
+        left: 0%;
         opacity: 1;
     }
 }
 
+#addCompletelyAleart li p {
+    text-align: center;
+}
 .btn-loading {
     position: fixed;
     top: 50%;
-    left: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
     z-index: 10000000;
 }
