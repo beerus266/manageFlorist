@@ -38,9 +38,11 @@ class HomeController extends Controller
 
     public function getBarChart(){
 
-        $data = $this->exportContr->getBarChart();
+        $dataEx = $this->exportContr->getBarChart();
+        $dataIm = $this->importContr->getBarChart();
         return response([
-        'data' => $data
+        'dataEx' => $dataEx,
+        'dataIm' => $dataIm
         ]);
     }
 }

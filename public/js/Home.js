@@ -7,6 +7,9 @@ function getBarChart(){
   });
 }
 
+//========= Lunar Calendar ============
+var now = moment().subtract( 43,'days');
+
 var areaChartData = {
 	labels: [],
     datasets: [
@@ -30,20 +33,30 @@ var areaChartData = {
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : []
+        data                : [0, 0, 0, 0, 0, 0, 0]
       },
 	],
   }
 
+for (let i = 6; i >= 0; i--){
+	areaChartData.labels.push(moment().subtract( 43,'days').subtract( i,'days').format("YYYY-MM-DD"));
+}
 //====== Active Navigation ================
 $(".list-unstyled").children(" li:eq(0)").addClass("active");
 
 //========= Get Data Bar Chart ===============
 getBarChart().done(function(data){
-	//   console.log(data);
-	  	data.data.map( (elem) => {
-		  	areaChartData.labels.push(elem.date);
-		  	areaChartData.datasets[1].data.push(elem.total);
+	  	// console.log(data);
+		data.dataIm.map( (elem) => {
+			if(areaChartData.labels.indexOf(elem.date) != -1){
+				areaChartData.datasets[0].data[areaChartData.labels.indexOf(elem.date)] = elem.total;
+			}
+			// areaChartData.datasets[0].data.push(elem.total);
+		});
+	  	data.dataEx.map( (elem) => {
+			if(areaChartData.labels.indexOf(elem.date) != -1){
+				areaChartData.datasets[1].data[areaChartData.labels.indexOf(elem.date)] = elem.total;
+			}
 		});
 		// console.log(areaChartData);
 

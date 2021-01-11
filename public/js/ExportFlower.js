@@ -119,6 +119,7 @@ function addIntoTable(){
     }else {
         $("#errOmit").hide();
         $("#errPrice").hide();
+        $("#sucOmit").hide();
         $("#errQuantity").hide();
         $("#errCus").hide();
         $("#date").prop('disabled',true);
@@ -139,6 +140,7 @@ function addIntoTable(){
             dataAdd.tai+"T",
             dataAdd.quantity,
             dataAdd.price,
+            '<button type="button" class="btn btn-warning">Xóa</button>'
         ]).draw(false);
 
         $("#addCompletelyAleart").prepend("<li><p>"+dataAdd.customer
@@ -193,7 +195,7 @@ $("#storeExportFlower").on('click',function(){
                 tableAdd.cell( i, 1 ).data(),
                 tableAdd.cell( i, 2 ).data(),
                 tableAdd.cell( i, 3 ).data(),
-                tableAdd.cell( i, 4 ).data(),
+                "x "+tableAdd.cell( i, 4 ).data(),
                 "= "+(tableAdd.cell( i, 3 ).data() * tableAdd.cell( i, 4 ).data()),
             ]).draw(true);
         }
@@ -268,8 +270,29 @@ $("#statisticBtn").on('click',function(){
     }
 });
 
-//============= Adjust =====================
-// $('#exportFlowerTable').parent().parent().css('margin-right','0px');
-// $('#exportFlowerTable').parent().parent().css('margin-left','0px');
+var tdWantToDelTableAdd;
+//============= Delete Row Add Create Table =========================
+$(document).on("click",".btn-warning", function(){
+    tdWantToDelTableAdd = $(this).parent();
+    let rowIndexTableAdd = tableAdd.row(tdWantToDelTableAdd).index();
 
+    $("#modalConfirm").children().children().children(".modal-body").empty();
+    $("#modalConfirm").children().children().children(".modal-body").prepend('<p>' 
+                                        +tableAdd.cell(rowIndexTableAdd, 0).data()+':  '
+                                        +tableAdd.cell(rowIndexTableAdd, 1).data()+'   '
+                                        +tableAdd.cell(rowIndexTableAdd, 2).data()+'   '
+                                        +tableAdd.cell(rowIndexTableAdd, 3).data()+' x  '
+                                        +tableAdd.cell(rowIndexTableAdd, 4).data()+'   '
+                                        +'</p>');
+    $("#modalConfirm").modal();
+});
+
+$(".btn-danger").on("click",function(){
+    // console.log(dataStandStore);
+    dataStandStore.splice(tableAdd.row(tdWantToDelTableAdd).index(), 1);
+    tableAdd.row(tdWantToDelTableAdd).remove().draw();
+    // console.log(dataStandStore);
+    $("#sucOmit").show();
+    $("#modalConfirm").modal('hide');
+});
 

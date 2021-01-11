@@ -149,10 +149,12 @@
                             </div>
                             <div class="form-group col-sm-2">
                                 <label for="">Số bó hoa</label>
+                                <span id="errQuantity" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                 <input type="text" class="form-control"  id="flowerQuantity">
                             </div>
                             <div class="form-group col-sm-2">
                                 <label for="">Giá</label>
+                                <span id="errPrice" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                 <input type="text" class="form-control"  id="flowerPrice">
                             </div>
                             <div class="form-group col-sm-2">
@@ -163,7 +165,8 @@
                                 <button type="button" class="btn btn-success " style="margin-top:26%; width:100%" id="addFlower">Thêm</button>
                             </div>
                         </div>
-						<span id="errOmit" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i> Điền chính xác thông tin</span>
+						<span id="errOmit" ><i class="fa fa-times-circle" aria-hidden="true"></i> Điền chính xác thông tin</span>
+						<span id="sucOmit" style="color: green; display:none"><i class="fas fa-check-circle"></i> Thao tác thành công</span>
                         <table class="table table-striped table-bordered" id="tableCreate">
                             <thead>
                                 <th>Tên khách hàng</th>
@@ -171,6 +174,7 @@
                                 <th>Tai</th>
                                 <th>Số lượng</th>
                                 <th>Giá</th>
+                                <th>Thao tác</th>
                             </thead>
                             <tbody>
                             </tbody>
@@ -178,6 +182,24 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="storeImportFlower"><i class="fas fa-save"></i> {{__('Nhập')}}</button>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ======================================================================================= --}}
+        {{-- Modal Confirm  --}}
+
+        <div class="modal" id="modalConfirm" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #f7e81b;">
+                        <h2 class="modal-title" style=" color: #9f9797"> Bạn sẽ xóa dòng này ?</h2>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="deleteRow"><i class="fas fa-exclamation-triangle"></i> {{__('Xóa')}}</button>    
                     </div>
                 </div>
             </div>
