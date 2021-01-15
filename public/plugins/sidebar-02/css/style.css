@@ -8228,6 +8228,9 @@ h1, h2, h3, h4, h5,
     font-weight: 700; }
     #sidebar h1 .logo {
       color: #fff; }
+      #sidebar h1 .logo img{
+        max-width: 187px;
+      }
   #sidebar ul.components {
     padding: 0; }
   #sidebar ul li {

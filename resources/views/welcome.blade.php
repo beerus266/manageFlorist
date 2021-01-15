@@ -47,8 +47,8 @@
 	                    <span class="sr-only">Toggle Menu</span>
 	                </button>
                 </div> -->
-				<div class="p-4 pt-5">
-		  		<h1><a href="/" class="logo">Mơ Lê</a></h1>
+				<div class="p-4 pt-5" style="padding-top: 1rem !important">
+		  		<h1><a href="/" class="logo"><img src="{{ asset('img/logo.png')}}"></a></h1>
 	        <ul class="list-unstyled components mb-5">
 	          <li>
 	            <a href="{{ route('home.index') }}"><i class="fas fa-home"></i> Trang chủ</a>
