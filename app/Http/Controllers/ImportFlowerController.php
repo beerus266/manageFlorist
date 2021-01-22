@@ -58,14 +58,21 @@ class ImportFlowerController extends Controller
 
     public function StatisticImportFlower ( Request $request ){
         // dd($request);
-
-        $data = ImportFlower::whereBetween('date', [ $request->from, $request->to])
-                            ->where('customer_id', $request->customer_id)
-                            ->join('flower', 'import_flower.flower_id', '=', 'flower.id')
-                            // ->join(' customer ', 'import_flower.customer_id', '=', 'customer.id')
-                            ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
-                            ->orderBy('date','asc')
-                            ->get();
+        if ($request->customer_id != 0) {
+            $data = ImportFlower::whereBetween('date', [ $request->from, $request->to])
+                                ->where('customer_id', $request->customer_id)
+                                ->join('flower', 'import_flower.flower_id', '=', 'flower.id')
+                                ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                ->orderBy('date','asc')
+                                ->get();
+        } else {
+            $data = ImportFlower::whereBetween('date', [ $request->from, $request->to])
+                                ->join('flower', 'import_flower.flower_id', '=', 'flower.id')
+                                ->join('customer', 'import_flower.customer_id', '=', 'customer.id')
+                                ->select('flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
+                                ->orderBy('date','asc')
+                                ->get();
+        }
 
         // dd($data);
         return response([

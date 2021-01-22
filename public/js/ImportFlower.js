@@ -122,6 +122,7 @@ function addIntoTable(){
         $("#errPrice").hide();
         $("#errQuantity").hide();
         $("#errCus").hide();
+        $("#date").prop('disabled',true);
 
         let dataImport = {
             'customer_id' : $("#customerName").val(),
@@ -218,8 +219,43 @@ $("#statisticBtn").on('click',function(){
     }
 
     if ( dataStatistic.customer_id == 0 ){
+    //======== All Of the customers ===============
+        StatisticImportFlower(dataStatistic).done(function(data){
+           console.log(data);
 
+           tableImport.clear().draw();
+
+           let totalAmount = 0;
+
+           let flagDate;
+           let flagCustomer;
+           for ( let item of data.data ){
+
+               let formDate = moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+               let customer = item.name;
+               tableImport.row.add([
+                   tableImport.rows().count()+1,
+                   (formDate  != flagDate) || (customer != flagCustomer) ? formDate : "" ,
+                   customer  == flagCustomer ? "" : customer ,
+                   item.note != null ? (item.flower_name +" "+item.note) : item.flower_name,
+                   item.tai+"T",
+                   item.quantity,
+                   "x "+item.price,
+                   "= "+(item.quantity * item.price),
+               ]).draw(false);
+
+               flagDate =  formDate == flagDate ? flagDate : formDate;
+               flagCustomer =  customer == flagCustomer ? flagCustomer : customer;
+
+               totalAmount += item.quantity * item.price
+           }
+
+           $("#totalAmount").text(totalAmount);
+       }).fail(function(e){
+           $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+       });
     } else {
+    //======== Just only 1 customer ===============
         console.log(dataStatistic);
 
         $("aside").css("display","none");

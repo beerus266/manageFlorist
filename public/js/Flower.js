@@ -45,7 +45,7 @@ $("#storeFlower").on('click',function(){
             $("#cardContainer").append(`
                 <div class="col-sm-3">
                     <div class="profile-card-2 ">
-                        <img src="{{ asset('img/iconLily.jpg')}}" class="img img-responsive">
+                        <img src="img/iconLily.jpg" class="img img-responsive">
                         <div class="profile-name-socially">`+data.data.flower_name+`</div>
                         <div class="profile-name-exactly">`+data.data.flower_code+`</div>
                     </div>

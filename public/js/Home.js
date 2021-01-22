@@ -15,7 +15,7 @@ var areaChartData = {
     datasets: [
       {
         label               : 'Nhập hàng',
-        backgroundColor     : 'rgba(188, 167, 89, 0.9)',
+        backgroundColor     : '#dc3545',
         borderColor         : 'rgba(60,141,188,0.8)',
         pointRadius          : false,
         pointColor          : '#3b8bba',

@@ -74,14 +74,21 @@ class ExportFlowerController extends Controller
     public function StatisticExportFlower ( Request $request ){
         // dd($request);
 
-        $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
-                            ->where('customer_id', $request->customer_id)
-                            ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
-                            // ->join(' customer ', 'export_flower.customer_id', '=', 'customer.id')
-                            ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
-                            ->orderBy('date','asc')
-                            ->get();
-
+        if ($request->customer_id != 0){
+            $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
+                                ->where('customer_id', $request->customer_id)
+                                ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
+                                ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                ->orderBy('date','asc')
+                                ->get();
+        } else {
+            $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
+                                ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
+                                ->join('customer', 'export_flower.customer_id', '=', 'customer.id')
+                                ->select('flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
+                                ->orderBy('date','asc')
+                                ->get();
+        }
         // dd($data);
         return response([
             'data' => $data
@@ -117,7 +124,6 @@ class ExportFlowerController extends Controller
         $endOfMonth = Carbon::now()->subDays($this->subDaysLunar)->endOfMonth();
 
         $data = ExportFlower::whereBetween('date', [ $startOfMonth, $endOfMonth ])
-                            // ->groupBy("date")
                             ->select(ExportFlower::raw('sum(cast(price as int) * cast(quantity as int)) as totalAMonth'))
                             ->get();
         $data[0]->totalAMonth = number_format($data[0]->totalAMonth , 0, '.', ',');

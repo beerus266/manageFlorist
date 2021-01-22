@@ -218,10 +218,46 @@ $("#statisticBtn").on('click',function(){
         'to'            : moment($("#statisticDate").val().split('-')[1].trim(),'DD/MM/YYYY').format('YYYY-MM-DD'),
     }
 
+    //======== All Of the customers ===============
     if ( dataStatistic.customer_id == 0 ){
+        StatisticExportFlower(dataStatistic).done(function(data){
+            // console.log(data);
 
-    } else {
-        // console.log(dataStatistic);
+            tableExport.clear().draw();
+
+            let totalAmount = 0;
+
+            let flagDate;
+            let flagCustomer;
+            for ( let item of data.data ){
+
+                let formDate = moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                let customer = item.name;
+// console.log(flag);
+                tableExport.row.add([
+                    tableExport.rows().count()+1,
+                    (formDate  != flagDate) || (customer != flagCustomer) ? formDate : "" ,
+                    customer  == flagCustomer ? "" : customer ,
+                    item.note != null ? (item.flower_name +" "+item.note) : item.flower_name,
+                    item.tai+"T",
+                    item.quantity,
+                    "x "+item.price,
+                    "= "+(item.quantity * item.price),
+                ]).draw(false);
+
+                flagDate =  formDate == flagDate ? flagDate : formDate;
+                flagCustomer =  customer == flagCustomer ? flagCustomer : customer;
+
+                totalAmount += item.quantity * item.price
+            }
+
+            $("#totalAmount").text(totalAmount);
+        }).fail(function(e){
+            $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+        });
+    } else {  
+    //======== Just only 1 customer ===============
+        console.log(dataStatistic);
 
         $("aside").css("display","none");
         $("section").css("width","100%");
@@ -232,7 +268,6 @@ $("#statisticBtn").on('click',function(){
 
             let totalAmount = 0;
             $("#statisticTable").css("display","");
-            tableExport['searching'] = false;
 
             $("#statisticCustomerName").text( $("#statisticCustomer option:selected").text());
             $("#statisticCustomerName").parent().css('display','');
@@ -248,8 +283,7 @@ $("#statisticBtn").on('click',function(){
                 let formDate = moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY');
 // console.log(flag);
                 tableStatistic.row.add([
-                    formDate  == flag
-                    ? "" : formDate ,
+                    formDate  == flag ? "" : formDate ,
                     item.note != null ? (item.flower_name +" "+item.note) : item.flower_name,
                     item.tai+"T",
                     item.quantity,
