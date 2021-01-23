@@ -72,10 +72,10 @@
           <!-- ./col -->
 		</div>   
 		
-		   <!-- BAR CHART -->
+		   <!-- Finance BAR CHART -->
 		   <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Bar Chart</h3>
+                <h3 class="card-title">Tiền nhập/xuất 7 ngày gần nhất</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -94,7 +94,45 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-                {{-- ======================================================================================= --}}
+        {{-- ======================================================================================= --}}
+					<!-- FLower BAR CHART -->
+		<div class="card card-primary">
+			<div class="card-header">
+			<h3 class="card-title">Số lượng hoa nhập/xuất </h3>
+				<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+					<button type="button" class="btn btn-tool" data-card-widget="remove">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<div class="input-group">
+							<span for="" style="font-weight: bold; margin: auto; margin-right:5%">Chọn ngày:</span>
+							<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</span>
+							</div>
+							<input type="text" class="form-control float-right" name="date" id="date">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<button type="button" class="btn btn-primary" id="quantityFlowerBtn">Thống kê</button>
+					</div>
+				</div>
+				<div class="chart">
+					<canvas id="flowerBarChart" style="min-height: 250px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
+				</div>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+  {{-- ======================================================================================= --}}
         {{-- Modal Error  --}}
         <div class="modal" id="modalErr" tabindex="-2" role="dialog" disabled >
           <div class="modal-dialog modal-lg" role="document">
@@ -106,8 +144,8 @@
                       </button>
                   </div>
                   <div class="modal-body" style="background-color: #e74343">
-                      <h4>Yêu cầu gọi Hải (0393755766) để xử lý</h4>
-                      <p>Hiện giờ phần mềm này KHÔNG còn đúng nữa....</p>
+                    <h4>Hãy chụp lại màn hình và gọi Hải (0393755766) để xử lý.</h4>
+                    <p>Có vấn đề khi thực hiện thao tác này....</p>
                   </div>
               </div>
           </div>

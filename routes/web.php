@@ -34,6 +34,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/home/get-bar-chart', [HomeController::class, 'getBarChart'])->name('home.getBarChart');
+Route::get('/home/get-quantity-flower', [HomeController::class, 'getQuantityEachFlowerByDate'])->name('home.getQuantityFlower');
 
 //Flower
 Route::get('/flower', [FlowerController::class, 'index'])->name('flower.index');

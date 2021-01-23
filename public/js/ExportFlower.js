@@ -53,8 +53,8 @@ $('input[name="date"]').daterangepicker({
       format: 'DD/MM/YYYY'
         // cancelLabel: 'Clear'
     }
-  });
-  $('input[name="statisticDate"]').daterangepicker({
+});
+$('input[name="statisticDate"]').daterangepicker({
     timePicker: false,
     singleDatePicker: false,
     startDate: moment().subtract( 43,'days').startOf('month'),
@@ -62,7 +62,7 @@ $('input[name="date"]').daterangepicker({
     locale: {
       format: 'DD/MM/YYYY'
     }
-  });
+});
 //====== Show modal store =================
 $("#createExport").on('click',function(){
     dataStandStore = [];

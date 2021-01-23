@@ -79,8 +79,8 @@
                         </button>
                     </div>
                     <div class="modal-body" style="background-color: #e74343">
-                        <h4>Yêu cầu gọi Hải (0393755766) để xử lý</h4>
-                        <p>Hiện giờ phần mềm này KHÔNG còn đúng nữa....</p>
+                        <h4>Hãy chụp lại màn hình và gọi Hải (0393755766) để xử lý.</h4>
+                        <p>Có vấn đề khi thực hiện thao tác này....</p>
                     </div>
                 </div>
             </div>
