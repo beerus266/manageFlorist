@@ -39,6 +39,7 @@ $("#storeFlower").on('click',function(){
             $("#errScientificName").hide();
         }
     } else {
+        $(".btn-loading").show();
         StoreFlower(dataStore).done(function(data){
             // console.log(data,data.data.created_at);
 
@@ -51,7 +52,7 @@ $("#storeFlower").on('click',function(){
                     </div>
                 </div>
             `);
-
+            $(".btn-loading").hide();
             $('#modalCreateFlower').modal('hide');
         }).fail(function(e){
             $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;

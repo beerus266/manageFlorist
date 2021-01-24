@@ -14,7 +14,11 @@
 	{{-- -------------------------------------------------- --}}
 	{{-- Alert --}}
         <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Xuất hàng thành công ! Xem ở đầu bảng</strong> </div>
-    {{-- -----------------------------------------  --}}
+	{{-- -----------------------------------------  --}}
+	<button class="btn btn-primary btn-loading" type="button" disabled >
+		<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		Xin chờ...
+	</button>
 	<table class="table table-striped table-bordered" id="customerTable">
         <thead>
             <th>STT</th>

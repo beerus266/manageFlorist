@@ -80,6 +80,7 @@ function drawFlowerQuantityChart(){
 		'date': moment($("#date").val(), 'DD-MM-YYYY').format('YYYY-MM-DD')
 	};
 	// console.log(dateQuantityFlower);
+	$(".btn-loading").show();
 	getQuantityEachKindOfFlower(dateQuantityFlower).done(function(data){
 		// console.log(data);
 		
@@ -108,9 +109,10 @@ function drawFlowerQuantityChart(){
 			data: flowerBarChartData,
 			options: flowerBarChartOptions
 		});
+		$(".btn-loading").hide();
 	}).fail(function(e){
 		$('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
-		console.log(e);
+		// console.log(e);
 	});
 }
 

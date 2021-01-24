@@ -58,7 +58,7 @@
         </div>
         <button class="btn btn-primary btn-loading" type="button" disabled >
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Đang lưu...
+            Xin chờ...
         </button>
         <table class="table table-bordered table-striped" id="statisticTable" style="display:none">
             <thead>

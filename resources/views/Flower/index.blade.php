@@ -16,7 +16,11 @@
 	{{-- Button Create  --}}
 	  <div class="bg"></div>
 	  <div class="button" id="createFlower"><i class="fas fa-pencil-alt fa-2x"></i></div>
-  	{{-- -------------------------------------------------- --}}
+	  {{-- -------------------------------------------------- --}}
+	<button class="btn btn-primary btn-loading" type="button" disabled >
+		<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		Xin chờ...
+	</button>
 	<div class="container-card">
 			<div class="row" style="margin-left:0px; margin-right:0px" id="cardContainer">
 				@foreach ($allFlower as $flower)

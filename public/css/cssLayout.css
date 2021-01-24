@@ -204,3 +204,12 @@ button.close {
   background-color: #f95668;
   border: 2px solid #f95668
 }
+
+.btn-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 10000000;
+}

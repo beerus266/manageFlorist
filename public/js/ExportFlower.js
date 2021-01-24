@@ -220,6 +220,7 @@ $("#statisticBtn").on('click',function(){
 
     //======== All Of the customers ===============
     if ( dataStatistic.customer_id == 0 ){
+        $(".btn-loading").show();
         StatisticExportFlower(dataStatistic).done(function(data){
             // console.log(data);
 
@@ -250,7 +251,7 @@ $("#statisticBtn").on('click',function(){
 
                 totalAmount += item.quantity * item.price
             }
-
+            $(".btn-loading").hide();
             $("#totalAmount").text(totalAmount);
         }).fail(function(e){
             $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
@@ -261,6 +262,7 @@ $("#statisticBtn").on('click',function(){
 
         $("aside").css("display","none");
         $("section").css("width","100%");
+        $(".btn-loading").show();
         StatisticExportFlower(dataStatistic).done(function(data){
             console.log(data);
 
@@ -295,7 +297,7 @@ $("#statisticBtn").on('click',function(){
 
                 totalAmount += item.quantity * item.price
             }
-
+            $(".btn-loading").show();
             $("#totalAmount").text(totalAmount);
         }).fail(function(e){
             $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;

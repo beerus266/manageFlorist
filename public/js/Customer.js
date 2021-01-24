@@ -29,7 +29,7 @@ $("#createCustomer").on('click',function(){
     $('#modalCreateCustomer').modal();
 });
 // console.log(Number("12"));
-//====== Store flower ====================
+//====== Store customer ====================
 $("#storeCustomer").on('click',function(){
     let dataStore = {
         'name' : $("#customerName").val(),
@@ -49,6 +49,7 @@ $("#storeCustomer").on('click',function(){
         //     $("#errPhone").hide();
         // }
     } else {
+        $(".btn-loading").show();
         StoreCustomer(dataStore).done(function(data){
             // console.log(data);
             $(".alert").show().fadeOut(5000);
@@ -60,10 +61,11 @@ $("#storeCustomer").on('click',function(){
                 data.data.account_bank,
             ]).draw(false);
 
+            $(".btn-loading").hide();
             $('#modalCreateCustomer').modal('hide');
         }).fail(function(e){
             $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
-            console.log(e);
+            // console.log(e);
         });
     }
 

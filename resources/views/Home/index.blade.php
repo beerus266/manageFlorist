@@ -150,6 +150,11 @@
               </div>
           </div>
       </div>
+
+    <button class="btn btn-primary btn-loading" type="button" disabled >
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Xin chờ...
+    </button>
 @endsection
 
 @push('JsFile')
