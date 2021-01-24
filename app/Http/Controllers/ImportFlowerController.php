@@ -56,24 +56,38 @@ class ImportFlowerController extends Controller
         ]);
     }
 
+    public function EditImportFlower(Request $request){
+
+        // dd($request->tai);
+
+        ImportFlower::where('id', $request->import_id)->update([
+            'tai'            => $request->tai,
+            'quantity'       => $request->quantity,
+            'price'          => $request->price,
+        ]);
+
+        return response([
+            'status' => 'success'
+        ]);
+    }
+
     public function StatisticImportFlower ( Request $request ){
         // dd($request);
         if ($request->customer_id != 0) {
             $data = ImportFlower::whereBetween('date', [ $request->from, $request->to])
                                 ->where('customer_id', $request->customer_id)
                                 ->join('flower', 'import_flower.flower_id', '=', 'flower.id')
-                                ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                ->select('import_flower.id','import_flower.customer_id','import_flower.flower_id','flower.flower_name', 'tai', 'quantity', 'price', 'date','note')
                                 ->orderBy('date','asc')
                                 ->get();
         } else {
             $data = ImportFlower::whereBetween('date', [ $request->from, $request->to])
                                 ->join('flower', 'import_flower.flower_id', '=', 'flower.id')
                                 ->join('customer', 'import_flower.customer_id', '=', 'customer.id')
-                                ->select('flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
+                                ->select('import_flower.id','import_flower.customer_id','import_flower.flower_id','flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
                                 ->orderBy('date','asc')
                                 ->get();
         }
-
         // dd($data);
         return response([
             'data' => $data
@@ -84,7 +98,7 @@ class ImportFlowerController extends Controller
         $dataOrigin = ImportFlower::join( 'flower', 'import_flower.flower_id', '=' , 'flower.id')
                                     ->join( 'customer', 'import_flower.customer_id', '=', 'customer.id' )
                                     ->orderBy ('date', 'desc')
-                                    ->select('import_flower.id','customer.name', 'flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                    ->select('import_flower.id','import_flower.customer_id','import_flower.flower_id','customer.name', 'flower.flower_name', 'tai', 'quantity', 'price', 'date','note')
                                     ->limit(500)
                                     ->get();
 

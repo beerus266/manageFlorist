@@ -60,6 +60,8 @@
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Xin chờ...
         </button>
+        {{-- Alert --}}
+        <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Thao tác thành công</strong> </div>
         <table class="table table-bordered table-striped" id="statisticTable" style="display:none">
             <thead>
                 <th>Ngày</th>
@@ -72,9 +74,7 @@
             <tbody>
             </tbody>
         </table>
-        {{-- Alert --}}
-            <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Xuất hàng thành công ! Xem ở đầu bảng</strong> </div>
-        {{-- -----------------------------------------  --}}
+ {{-- -----------------------------------------  --}}
         <table class="table table-striped table-bordered" id="exportFlowerTable" style="">
             <thead>
                 <th>STT</th>
@@ -89,14 +89,14 @@
             <tbody>
                 @foreach ( $dataAllExport as $export)
                     <tr>
-                        <td>{{$loop->index+1}}</td>
+                        <td value="{{$export->id}}">{{$loop->index+1}}</td>
                         <td>{{$export->date}}</td>
-                        <td>{{$export->name}}</td>
-                        <td>{{$export->flower_name}} {{$export->note}} </td>
+                        <td value="{{$export->customer_id}}">{{$export->name}}</td>
+                        <td value="{{$export->flower_id}}">{{$export->flower_name}} {{$export->note}} </td>
                         <td>{{$export->tai}}T</td>
                         <td>{{$export->quantity}}</td>
                         <td>x {{$export->price}}</td>
-                        <td> = {{$export->quantity * $export->price }}</td>
+                        <td>= {{$export->quantity * $export->price }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -200,6 +200,70 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="deleteRow"><i class="fas fa-exclamation-triangle"></i> {{__('Xóa')}}</button>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ======================================================================================= --}}
+        {{-- Modal Edit Table  --}}
+        <div class="modal" id="modalEdit" tabindex="-2" role="dialog" >
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" >
+                        <h2 class="modal-title" >Chỉnh sửa số liệu</h2>
+                        <button type="button" data-dismiss="close" class="close" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" >
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="">Chọn khách hàng</label>
+                                <span id="errCus" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                <select type="text" class="form-control"  id="customerNameEdit" disabled>
+                                    <option value="0" >Chọn khách hàng</option>
+                                    @foreach ($dataAllCustomer as $cus)
+                                        <option value="{{$cus->id}}">{{$cus->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="">Chọn ngày</label>
+                                <input type="text" name="date" class="form-control" id="dateEdit" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="">Chọn loại hoa</label>
+                                <select type="text" class="form-control"  id="flowerNameEdit" disabled>
+                                    <option value="0" >Chọn loại hoa</option>
+                                    @foreach ($dataAllFlower as $flo)
+                                        <option value="{{$flo->id}}">{{$flo->flower_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for=""> Tai </label>
+                                <input type="text" class="form-control"  id="taiEdit">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Số bó hoa</label> 
+                                <span id="errQuantityEdit" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control"  id="flowerQuantityEdit">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Giá</label>
+                                <span id="errPriceEdit" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control"  id="flowerPriceEdit">
+                            </div>
+                        </div>
+						<span id="errOmitEdit" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i> Điền chính xác thông tin</span>
+						
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ><i class="fas fa-times"></i> Đóng</button>
+                        <button type="button" class="btn btn-primary" id="exportEdit"><i class="fas fa-save"></i> Lưu</button>    
                     </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\CustomerController;
 use App\Models\ExportFlower;
@@ -11,7 +10,6 @@ use Carbon\Carbon;
 
 class ExportFlowerController extends Controller
 {
-    
     public function __construct(
         FlowerController $FlowerController,
         CustomerController $CustomerController
@@ -34,19 +32,6 @@ class ExportFlowerController extends Controller
 
     public function StoreExportFlower ( Request $request){
         //dd($request);
-        //$request->file('imgInvoice')->store('InvoiceStorage');
-
-        //dd($request->hasFile('imgInvoice')  );
-
-        // if ($request->hasFile('imgInvoice')) {
-
-        //     $fileInvoice = $request->imgInvoice;
-        //     Storage::putFileAs('InvoiceStorage',$fileInvoice,"name.pdf");
-        //  //   $file->move('InvoiceStorage', $file->getClientOriginalName());
-        //     return back();
-        // } else {
-        //     return view('welcome');
-        // }
         $date           = $request->date;
 
         foreach ( $request->exportFlower as $block ){
@@ -71,21 +56,35 @@ class ExportFlowerController extends Controller
         ]);
     }
 
+    public function EditExportFlower(Request $request){
+
+        // dd($request->tai);
+
+        ExportFlower::where('id', $request->export_id)->update([
+            'tai'            => $request->tai,
+            'quantity'       => $request->quantity,
+            'price'          => $request->price,
+        ]);
+
+        return response([
+            'status' => 'success'
+        ]);
+    }
+
     public function StatisticExportFlower ( Request $request ){
         // dd($request);
-
         if ($request->customer_id != 0){
             $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
                                 ->where('customer_id', $request->customer_id)
                                 ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
-                                ->select('flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                ->select('export_flower.id','export_flower.customer_id','export_flower.flower_id','flower.flower_name', 'tai', 'quantity', 'price', 'date','note')
                                 ->orderBy('date','asc')
                                 ->get();
         } else {
             $data = ExportFlower::whereBetween('date', [ $request->from, $request->to])
                                 ->join('flower', 'export_flower.flower_id', '=', 'flower.id')
                                 ->join('customer', 'export_flower.customer_id', '=', 'customer.id')
-                                ->select('flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
+                                ->select('export_flower.id','export_flower.customer_id','export_flower.flower_id','flower.flower_name', 'customer.name', 'tai', 'quantity', 'price', 'date','note')
                                 ->orderBy('date','asc')
                                 ->get();
         }
@@ -99,7 +98,7 @@ class ExportFlowerController extends Controller
         $dataOrigin = ExportFlower::join( 'flower', 'export_flower.flower_id', '=' , 'flower.id')
                                     ->join( 'customer', 'export_flower.customer_id', '=', 'customer.id' )
                                     ->orderBy ('date', 'desc')
-                                    ->select('export_flower.id','customer.name', 'flower.flower_name', 'flower.flower_code', 'tai', 'quantity', 'price', 'date','note')
+                                    ->select('export_flower.id','export_flower.customer_id','export_flower.flower_id','customer.name', 'flower.flower_name', 'tai', 'quantity', 'price', 'date','note')
                                     ->limit(500)
                                     ->get();
 

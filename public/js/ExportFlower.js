@@ -32,6 +32,14 @@ function StoreExportFlower(dataStore) {
         type    : 'json',
     });
 }
+function EditExportFlower(dataEdit) {
+    return $.ajax({
+        method  : 'get',
+        url     : window.location.origin+'/export-flower/edit',
+        data    : dataEdit,
+        type    : 'json',
+    });
+}
 function StatisticExportFlower(dataStatistic) {
     return $.ajax({
         method  : 'get',
@@ -39,6 +47,20 @@ function StatisticExportFlower(dataStatistic) {
         data    : dataStatistic,
         type    : 'json',
     });
+}
+function calSumAllTableAfterEdit(isStaticTable){
+    let total = 0;
+    if (isStaticTable) {
+        console.log(tableStatistic.rows().count());
+        for ( let i = 1; i <= tableStatistic.rows().count(); ++i) {
+            total += Number ($('#statisticTable tbody').children("tr:nth-child("+i+")").children("td:nth-child(6)").text().toString().split(" ")[1]);
+        }
+    } else {
+        for ( let i = 1; i <= tableExport.rows().count(); ++i) {
+            total += Number ($('#exportFlowerTable tbody').children("tr:nth-child("+i+")").children("td:nth-child(8)").text().toString().split(" ")[1]);
+        }
+    }
+    $("#totalAmount").text(total);
 }
 
 //====== Active Navigation ================
@@ -51,7 +73,6 @@ $('input[name="date"]').daterangepicker({
     startDate: moment().subtract( 43,'days'),
     locale: {
       format: 'DD/MM/YYYY'
-        // cancelLabel: 'Clear'
     }
 });
 $('input[name="statisticDate"]').daterangepicker({
@@ -223,7 +244,6 @@ $("#statisticBtn").on('click',function(){
         $(".btn-loading").show();
         StatisticExportFlower(dataStatistic).done(function(data){
             // console.log(data);
-
             tableExport.clear().draw();
 
             let totalAmount = 0;
@@ -231,10 +251,8 @@ $("#statisticBtn").on('click',function(){
             let flagDate;
             let flagCustomer;
             for ( let item of data.data ){
-
-                let formDate = moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                let formDate = item.date;
                 let customer = item.name;
-// console.log(flag);
                 tableExport.row.add([
                     tableExport.rows().count()+1,
                     (formDate  != flagDate) || (customer != flagCustomer) ? formDate : "" ,
@@ -248,8 +266,11 @@ $("#statisticBtn").on('click',function(){
 
                 flagDate =  formDate == flagDate ? flagDate : formDate;
                 flagCustomer =  customer == flagCustomer ? flagCustomer : customer;
+                totalAmount += item.quantity * item.price;
 
-                totalAmount += item.quantity * item.price
+                $('#exportFlowerTable tbody').children("tr:nth-child("+tableExport.rows().count() +")").children("td:nth-child(1)").attr("value",item.id);
+                $('#exportFlowerTable tbody').children("tr:nth-child("+tableExport.rows().count() +")").children("td:nth-child(3)").attr("value",item.customer_id);
+                $('#exportFlowerTable tbody').children("tr:nth-child("+tableExport.rows().count() +")").children("td:nth-child(4)").attr("value",item.flower_id);
             }
             $(".btn-loading").hide();
             $("#totalAmount").text(totalAmount);
@@ -258,20 +279,20 @@ $("#statisticBtn").on('click',function(){
         });
     } else {  
     //======== Just only 1 customer ===============
-        console.log(dataStatistic);
+        // console.log(dataStatistic);
 
         $("aside").css("display","none");
         $("section").css("width","100%");
         $(".btn-loading").show();
         StatisticExportFlower(dataStatistic).done(function(data){
-            console.log(data);
+            // console.log(data);
 
             tableStatistic.clear().draw();
 
             let totalAmount = 0;
             $("#statisticTable").css("display","");
-
             $("#statisticCustomerName").text( $("#statisticCustomer option:selected").text());
+            $("#statisticCustomerName").attr("value",$("#statisticCustomer").val());
             $("#statisticCustomerName").parent().css('display','');
             $("#fromToDate").text( "Thời gian từ : "
                                     + $("#statisticDate").val().split('-')[0].trim() 
@@ -294,14 +315,17 @@ $("#statisticBtn").on('click',function(){
                 ]).draw(false);
 
                 flag =  formDate == flag ? flag : formDate;
+                totalAmount += item.quantity * item.price;
 
-                totalAmount += item.quantity * item.price
+                $('#statisticTable tbody').children("tr:nth-child("+tableStatistic.rows().count() +")").children("td:nth-child(1)").attr("value",item.id);
+                $('#statisticTable tbody').children("tr:nth-child("+tableStatistic.rows().count() +")").children("td:nth-child(2)").attr("value",item.flower_id);
+           
             }
-            $(".btn-loading").show();
+            $(".btn-loading").hide();
             $("#totalAmount").text(totalAmount);
         }).fail(function(e){
             $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
-            console.log(e);
+            // console.log(e);
         });
     }
 });
@@ -330,5 +354,93 @@ $(".btn-danger").on("click",function(){
     // console.log(dataStandStore);
     $("#sucOmit").show();
     $("#modalConfirm").modal('hide');
+});
+
+//================= Edit Table =================================================================
+
+var rowSelected;
+var static;
+$(document).on("dblclick", "#exportFlowerTable tr",function(){
+    rowSelected = $(this);
+    static = false;
+
+    $("#dateEdit").val( moment($(this).children("td:nth-child(2)").text(), 'YYYY-MM-DD').format('DD-MM-YYYY'));
+    $("#customerNameEdit").val($(this).children("td:nth-child(3)").attr("value"));
+    $("#flowerNameEdit").val($(this).children("td:nth-child(4)").attr("value"));
+    $("#taiEdit").val($(this).children("td:nth-child(5)").text().toString().replace("T",""));
+    $("#flowerQuantityEdit").val($(this).children("td:nth-child(6)").text());
+    $("#flowerPriceEdit").val($(this).children("td:nth-child(7)").text().toString().split(" ")[1]);
+    $("#modalEdit").modal();
+}); 
+$(document).on("dblclick", "#statisticTable tr",function(){
+    rowSelected = $(this);
+    static = true;
+
+    $("#dateEdit").val($(this).children("td:nth-child(1)").text());
+    $("#customerNameEdit").val($("#statisticCustomerName").attr("value"));
+    $("#flowerNameEdit").val($(this).children("td:nth-child(2)").attr("value"));
+    $("#taiEdit").val($(this).children("td:nth-child(3)").text().toString().replace("T",""));
+    $("#flowerQuantityEdit").val($(this).children("td:nth-child(4)").text());
+    $("#flowerPriceEdit").val($(this).children("td:nth-child(5)").text().toString().split(" ")[1]);
+    $("#modalEdit").modal();
+}); 
+
+$("#exportEdit").on("click",function(){
+    let dataEdit = {
+        'export_id' : Number(rowSelected.children("td:first-child").attr("value")),
+        'tai'       : $("#taiEdit").val(),
+        'quantity'  : Number($("#flowerQuantityEdit").val()),
+        'price'     : Number($("#flowerPriceEdit").val()),
+    };
+    // console.log(dataAdd);
+    // check form input 
+    if (     dataEdit.tai == "" 
+            ||  isNaN(dataEdit.quantity) 
+            ||  dataEdit.quantity == "" 
+            ||  isNaN(dataEdit.price) 
+            ||  dataEdit.price == ""
+    ){
+        if (isNaN(dataEdit.quantity) ||  dataEdit.quantity == "" ) {
+            $("#errQuantityEdit").show();
+        } else {
+            $("#errQuantityEdit").hide();
+        }
+        if (isNaN(dataEdit.price) ||  dataEdit.price == "" ) {
+            $("#errPriceEdit").show();
+        } else {
+            $("#errPriceEdit").hide();
+        }
+        $("#errOmitEdit").show();
+    }else {
+        $("#errOmitEdit").hide();
+        $("#errQuantityEdit").hide();
+        $("#errPriceEdit").hide();
+        $(".btn-loading").show();
+        // console.log(dataEdit);
+
+        EditExportFlower(dataEdit).done(function(data){
+            // console.log(data);
+
+            if (!static){
+                rowSelected.children("td:nth-child(5)").text(dataEdit.tai);
+                rowSelected.children("td:nth-child(6)").text(dataEdit.quantity);
+                rowSelected.children("td:nth-child(7)").text("x "+dataEdit.price);
+                rowSelected.children("td:nth-child(8)").text("= "+(dataEdit.quantity*dataEdit.price));
+                calSumAllTableAfterEdit(false);
+            } else {
+                rowSelected.children("td:nth-child(3)").text(dataEdit.tai);
+                rowSelected.children("td:nth-child(4)").text(dataEdit.quantity);
+                rowSelected.children("td:nth-child(5)").text("x "+dataEdit.price);
+                rowSelected.children("td:nth-child(6)").text("= "+(dataEdit.quantity*dataEdit.price));
+                calSumAllTableAfterEdit(true);
+            }
+            $("#modalEdit").modal('hide');
+            $(".btn-loading").hide();
+            $(".alert").show().fadeOut(15000);
+        }).fail(function(e){
+            $('#modalErr').modal({backdrop: 'static', keyboard: false})  ;
+            console.log(e);
+        });
+    }
 });
 

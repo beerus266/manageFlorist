@@ -47,11 +47,13 @@ Route::get('/customer/store', [CustomerController::class, 'StoreCustomer'])->nam
 // Export Flower
 Route::get('/export-flower', [ExportFlowerController::class, 'index'])->name('exportFlower.index');
 Route::get('/export-flower/store', [ExportFlowerController::class, 'StoreExportFlower'])->name('exportFlower.store');
+Route::get('/export-flower/edit', [ExportFlowerController::class, 'EditExportFlower'])->name('exportFlower.edit');
 Route::get('/export-flower/statistic', [ExportFlowerController::class, 'StatisticExportFlower'])->name('exportFlower.statistic');
 
 // Import Flower
 Route::get('/import-flower', [ImportFlowerController::class, 'index'])->name('importFlower.index');
 Route::get('/import-flower/store', [ImportFlowerController::class, 'StoreImportFlower'])->name('importFlower.store');
+Route::get('/import-flower/edit', [ImportFlowerController::class, 'EditImportFlower'])->name('importFlower.edit');
 Route::get('/import-flower/statistic', [ImportFlowerController::class, 'StatisticImportFlower'])->name('importFlower.statistic');
 
 
