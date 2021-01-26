@@ -29,7 +29,7 @@ class CustomerController extends Controller
         $customer->name           = $request->name;
         $customer->address        = $request->address;
         $customer->phone          = $request->phone;
-        $customer->account_bank   = $request->account_bank;
+        $customer->isImporter     = $request->isImporter;
 
         $customer->save();
 
@@ -40,6 +40,16 @@ class CustomerController extends Controller
         return response([
             'data' => $data,
         ]);
+    }
+
+    function getAllCustomerImport(){
+
+        return Customer::where("isImporter",1)->orWhere("isImporter",2)->orderBy('name','asc')->get();
+    }
+
+    function getAllCustomerExport(){
+
+        return Customer::where("isImporter",0)->orWhere("isImporter",2)->orderBy('name','asc')->get();
     }
 
     function getAllCustomer(){

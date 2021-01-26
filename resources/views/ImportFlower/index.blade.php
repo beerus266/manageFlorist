@@ -40,14 +40,14 @@
                         <input type="text" class="form-control float-right" name="statisticDate" id="statisticDate">
                     </div>
                 </div>
-                <div class="form-group col-sm-3">
-                    <label for="" style="font-weight: bold">Chọn khách</label>
-                    <select name="" class="form-control" id="statisticCustomer">
-                        <option value="0">Tất cả</option>
-                        @foreach ($dataAllCustomer as $cus)
-                            <option value="{{$cus->id}}">{{$cus->name}}</option>
-                        @endforeach
-                    </select>
+                <div class="form-group col-sm-4">
+                        <label for="" style="font-weight: bold">Chọn khách </label>
+                        <select name="" class="form-control" id="statisticCustomer">
+                            <option value="0">Tất cả</option>
+                            @foreach ($dataAllCustomer as $cus)
+                                <option value="{{$cus->id}}">{{$cus->name}}</option>
+                            @endforeach
+                        </select>
                 </div>
                 <button type="button" class="btn btn-primary" style="height: 30%; margin-top: 40px;" id="statisticBtn">Thống kê</button>
             </div>

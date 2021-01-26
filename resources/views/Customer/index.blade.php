@@ -13,7 +13,7 @@
 		<div class="button" id="createCustomer"><i class="fas fa-pencil-alt fa-2x"></i></div>
 	{{-- -------------------------------------------------- --}}
 	{{-- Alert --}}
-        <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Xuất hàng thành công ! Xem ở đầu bảng</strong> </div>
+        <div class="alert alert_success" style="display:none"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> <strong>Thao tác thành công</strong> </div>
 	{{-- -----------------------------------------  --}}
 	<button class="btn btn-primary btn-loading" type="button" disabled >
 		<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -25,7 +25,7 @@
             <th>Tên</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
-            <th>Tài khoản ngân hàng</th>
+            <th>Kiểu khách hàng</th>
         </thead>
         <tbody>
 			@foreach ($allCustomer as $cus)
@@ -34,7 +34,16 @@
 					<td>{{$cus->name}}</td>
 					<td>{{$cus->address}}</td>
 					<td>{{$cus->phone}}</td>
-					<td>{{$cus->account_bank}}</td>
+					
+					@if ($cus->isImporter == 1)
+						<td style="color: #e71111">Khách nhập hàng</td>
+					@else
+						@if ($cus->isImporter == 0)
+							<td style="color: #2cb349">Khách nhập hàng</td>	
+						@else
+							<td>Khách nhập/xuất</td>
+						@endif
+					@endif
 				</tr>
 			@endforeach
         </tbody>
@@ -56,7 +65,7 @@
 						<span id="errName" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
 						<input type="text" class="form-control"  id="customerName" required>
 					</div>
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label for="">Địa chỉ</label>
 						<input type="text" class="form-control" id="address">
 					</div>
@@ -64,10 +73,26 @@
 						<label for=""> Số điện thoại</label>
 						<span id="errPhone" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
 						<input type="text" class="form-control"  id="telNum">
+					</div> --}}
+					<label for="" style="font-weight: bold">Kiểu khách hàng (lựa chọn kiểu chủ yếu)</label>
+					<span id="errTypeCustomer" style="color: red; display:none"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="exampleRadios" id="importer" value="1" >
+						<label class="form-check-label" for="importer">
+							Khách nhập hàng 
+						</label>
 					</div>
-					<div class="form-group">
-						<label for="">Tài khoản ngân hàng</label>
-						<input type="text" class="form-control"  id="accountBank">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="exampleRadios" id="exporter" value="0">
+						<label class="form-check-label" for="exporter">
+							Khách xuất hàng 
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="exampleRadios" id="both" value="2">
+						<label class="form-check-label" for="both">
+							Khách nhập/xuất hàng
+						</label>
 					</div>
 				</div>
 				<div class="modal-footer">

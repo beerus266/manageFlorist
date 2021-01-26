@@ -23,7 +23,7 @@ class ImportFlowerController extends Controller
     public function index(){
 
         $dataAllFlower      = $this->flowerContr->getAllFlower();
-        $dataAllCustomer    = $this->customerContr->getAllCustomer();
+        $dataAllCustomer    = $this->customerContr->getAllCustomerImport();
     
         $dataAllImport      = $this->getAllImport();
         // dd($dataAllFlower);

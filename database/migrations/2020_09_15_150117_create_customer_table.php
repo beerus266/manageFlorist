@@ -18,7 +18,7 @@ class CreateCustomerTable extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->string('account_bank')->nullable();
+            $table->integer('isImporter');
             $table->string('status')->default(1);
             $table->timestamps();
         });

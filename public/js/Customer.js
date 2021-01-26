@@ -35,20 +35,22 @@ $("#storeCustomer").on('click',function(){
         'name' : $("#customerName").val(),
         'address' : $("#address").val(),
         'phone' : $("#telNum").val(),
-        'account_bank' : $("#accountBank").val(),
+        'isImporter' : $('input[name=exampleRadios]:checked').val(),
     }
-    if ( dataStore.name == "" ){
+    if ( dataStore.name == "" || dataStore.isImporter == undefined){
         if ( dataStore.name == ""){
             $("#errName").show();
         } else {
             $("#errName").hide();
         }
-        // if ( dataStore.phone == ""){
-        //     $("#errPhone").show();
-        // } else {
-        //     $("#errPhone").hide();
-        // }
+        if ( dataStore.isImporter == undefined){
+            $("#errTypeCustomer").show();
+        } else {
+            $("#errTypeCustomer").hide();
+        }
     } else {
+        $("#errTypeCustomer").hide();
+        $("#errName").hide();
         $(".btn-loading").show();
         StoreCustomer(dataStore).done(function(data){
             // console.log(data);
@@ -58,7 +60,7 @@ $("#storeCustomer").on('click',function(){
                 data.data.name,
                 data.data.phone,
                 data.data.address,
-                data.data.account_bank,
+                data.data.isImporter == 1 ? "Khách nhập hàng" : "Khách mua hàng",
             ]).draw(false);
 
             $(".btn-loading").hide();

@@ -40,7 +40,7 @@
                         <input type="text" class="form-control float-right" name="statisticDate" id="statisticDate">
                     </div>
                 </div>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label for="" style="font-weight: bold">Chọn khách</label>
                     <select name="" class="form-control" id="statisticCustomer">
                         <option value="0">Tất cả</option>
