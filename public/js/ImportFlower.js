@@ -70,7 +70,7 @@ $(".list-unstyled").children(" li:eq(3)").addClass("active");
 $('input[name="date"]').daterangepicker({
     timePicker: false,
     singleDatePicker: true,
-    startDate: moment().subtract( 43,'days'),
+    startDate: moment().subtract( 41,'days'),
     locale: {
       format: 'DD/MM/YYYY'
     }
@@ -78,8 +78,8 @@ $('input[name="date"]').daterangepicker({
   $('input[name="statisticDate"]').daterangepicker({
     timePicker: false,
     singleDatePicker: false,
-    startDate: moment().subtract( 43,'days').startOf('month'),
-    endDate: moment().subtract( 43, 'days'),
+    startDate: moment().subtract( 41,'days').startOf('month'),
+    endDate: moment().subtract( 41, 'days'),
     locale: {
       format: 'DD/MM/YYYY'
     }
@@ -161,7 +161,7 @@ function addIntoTable(){
             dataAdd.tai+"T",
             dataAdd.quantity,
             dataAdd.price,
-            '<button type="button" class="btn btn-warning">Xóa</button>'
+            // '<button type="button" class="btn btn-warning">Xóa</button>'
         ]).draw(false);
 
         $("#addCompletelyAleart").prepend("<li><p>"+dataAdd.customer

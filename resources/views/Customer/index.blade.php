@@ -39,7 +39,7 @@
 						<td style="color: #e71111">Khách nhập hàng</td>
 					@else
 						@if ($cus->isImporter == 0)
-							<td style="color: #2cb349">Khách nhập hàng</td>	
+							<td style="color: #2cb349">Khách xuất hàng</td>	
 						@else
 							<td>Khách nhập/xuất</td>
 						@endif
@@ -91,7 +91,7 @@
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="exampleRadios" id="both" value="2">
 						<label class="form-check-label" for="both">
-							Khách nhập/xuất hàng
+							Cả nhập/xuất hàng
 						</label>
 					</div>
 				</div>

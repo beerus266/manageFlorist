@@ -17,7 +17,7 @@ class ExportFlowerController extends Controller
         $this->middleware('auth');
         $this->flowerContr = $FlowerController;
         $this->customerContr = $CustomerController;
-        $this->subDaysLunar = 43;
+        $this->subDaysLunar = 41;
     }
 
     public function index(){
@@ -99,7 +99,7 @@ class ExportFlowerController extends Controller
                                     ->join( 'customer', 'export_flower.customer_id', '=', 'customer.id' )
                                     ->orderBy ('date', 'desc')
                                     ->select('export_flower.id','export_flower.customer_id','export_flower.flower_id','customer.name', 'flower.flower_name', 'tai', 'quantity', 'price', 'date','note')
-                                    ->limit(500)
+                                    ->limit(50)
                                     ->get();
 
         // dd($dataOrigin);
@@ -113,7 +113,7 @@ class ExportFlowerController extends Controller
 
         $data = ExportFlower::whereBetween('date', [ $curentSubAWeek->toDateString(), $current->toDateString() ])
                             ->groupBy("date")
-                            ->select("date",ExportFlower::raw('sum(cast(price as int) * cast(quantity as int)) as total'))
+                            ->select("date",ExportFlower::raw('sum(cast(price as float) * cast(quantity as int)) as total'))
                             ->get();
         return $data;
     }
@@ -123,7 +123,7 @@ class ExportFlowerController extends Controller
         $endOfMonth = Carbon::now()->subDays($this->subDaysLunar)->endOfMonth();
 
         $data = ExportFlower::whereBetween('date', [ $startOfMonth, $endOfMonth ])
-                            ->select(ExportFlower::raw('sum(cast(price as int) * cast(quantity as int)) as totalAMonth'))
+                            ->select(ExportFlower::raw('sum(cast(price as float) * cast(quantity as int)) as totalAMonth'))
                             ->get();
         $data[0]->totalAMonth = number_format($data[0]->totalAMonth , 0, '.', ',');
         $data[0]->month = Carbon::now()->subDays($this->subDaysLunar)->month;

@@ -175,14 +175,15 @@
                                 <th>Tai</th>
                                 <th>Số lượng</th>
                                 <th>Giá</th>
-                                <th>Thao tác</th>
+                                {{-- <th>Thao tác</th> --}}
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="storeImportFlower"><i class="fas fa-save"></i> {{__('Nhập')}}</button>    
+                        <button type="button" class="btn btn-primary" id="storeImportFlower"><i class="fas fa-save"></i> {{__('Chốt hóa đơn nhập')}}</button>  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ><i class="fas fa-times"></i> Bỏ qua</button>  
                     </div>
                 </div>
             </div>

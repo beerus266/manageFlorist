@@ -1,5 +1,5 @@
 //======== Define Variable ===============================================================
-var now = moment().subtract( 43,'days');
+var now = moment().subtract( 41,'days');
 var flowerBarChartCanvas = $('#flowerBarChart').get(0).getContext('2d');
 var flowerBarChartData ;
 var flowerBarChartOptions = {
@@ -158,7 +158,7 @@ var areaChartData = {
 }
 
 for (let i = 6; i >= 0; i--){
-	areaChartData.labels.push(moment().subtract( 43,'days').subtract( i,'days').format("YYYY-MM-DD"));
+	areaChartData.labels.push(moment().subtract( 41,'days').subtract( i,'days').format("YYYY-MM-DD"));
 }
 //====== Active Navigation ================
 $(".list-unstyled").children(" li:eq(0)").addClass("active");
